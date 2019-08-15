@@ -1,0 +1,11 @@
+logs
+*.log
+project/project
+project/target
+target
+tmp
+dist
+.cache
+cache
+.metals
+.bloop
