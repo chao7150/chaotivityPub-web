@@ -1,5 +1,6 @@
 name := """chaotivityPub-web"""
-organization := "com.example"
+organization := "chao"
+maintainer := "s_yoko1994@yahoo.co.jp"
 
 version := "1.0-SNAPSHOT"
 
