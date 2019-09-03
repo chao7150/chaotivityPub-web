@@ -20,7 +20,7 @@ class ActorControllerSpec
       contentType(sampleActor) mustBe Some("application/json")
       val content: Actor = contentAsJson(sampleActor).as[Actor]
       content.id mustBe 1
-      content.actorType mustBe "person"
+      content.actorType.toString mustBe "Person"
       content.inbox mustBe "https://sencha.chao.tokyo/actor/1/inbox"
       content.outbox mustBe "https://sencha.chao.tokyo/actor/1/outbox"
     }

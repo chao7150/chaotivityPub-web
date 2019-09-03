@@ -23,12 +23,12 @@ class ActorController @Inject()(cc: ControllerComponents)
   val sampleActor: Actor =
     Actor(
       1,
-      "person",
+      "Person",
       "https://sencha.chao.tokyo/actor/1/inbox",
       "https://sencha.chao.tokyo/actor/1/outbox"
     )
   sql"""
-    insert into actors (type, inbox, outbox) values (${sampleActor.actorType}, ${sampleActor.inbox}, ${sampleActor.outbox})
+    insert into actors (type, inbox, outbox) values (${sampleActor.actorType.toString}, ${sampleActor.inbox}, ${sampleActor.outbox})
   """.execute.apply()
   def get(id: Int) = Action {
     val actor: Option[Actor] = DB readOnly { implicit session: DBSession =>
