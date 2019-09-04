@@ -29,24 +29,22 @@ case object UnknownActor extends ActorType
 
 final class Actor private (
     val id: Int,
-    val actorType: ActorType,
-    val inbox: String,
-    val outbox: String
-)
+    val actorType: ActorType
+) {
+  val hostName: String = sys.env.getOrElse("HOST_NAME", "sencha.chao.tokyo")
+  val inbox: String = s"https://$hostName/actor/$id/inbox"
+  val outbox: String = s"https://$hostName/actor/$id/outbox"
+}
 
 object Actor {
   def apply(
       id: Int,
-      actorTypeString: String,
-      inbox: String,
-      outbox: String
-  ): Actor = new Actor(id, ActorType(actorTypeString), inbox, outbox)
+      actorTypeString: String
+  ): Actor = new Actor(id, ActorType(actorTypeString))
 
   implicit val actorReads: Reads[Actor] = (
     (JsPath \ "id").read[Int] and
-      (JsPath \ "actorType").read[String] and
-      (JsPath \ "inbox").read[String] and
-      (JsPath \ "outbox").read[String]
+      (JsPath \ "actorType").read[String]
   )(Actor.apply _)
 
   implicit val actorWrites = new Writes[Actor] {

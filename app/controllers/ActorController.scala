@@ -15,20 +15,16 @@ class ActorController @Inject()(cc: ControllerComponents)
   sql"""
   create table actors (
     id smallint not null primary key auto_increment,
-    type varchar(64),
-    inbox varchar(255),
-    outbox varchar(255)
+    type varchar(64)
   )
       """.execute.apply()
   val sampleActor: Actor =
     Actor(
       1,
-      "Person",
-      "https://sencha.chao.tokyo/actor/1/inbox",
-      "https://sencha.chao.tokyo/actor/1/outbox"
+      "Person"
     )
   sql"""
-    insert into actors (type, inbox, outbox) values (${sampleActor.actorType.toString}, ${sampleActor.inbox}, ${sampleActor.outbox})
+    insert into actors (type) values (${sampleActor.actorType.toString})
   """.execute.apply()
   def get(id: Int) = Action {
     val actor: Option[Actor] = DB readOnly { implicit session: DBSession =>
@@ -37,9 +33,7 @@ class ActorController @Inject()(cc: ControllerComponents)
           rs =>
             Actor(
               rs.int("id"),
-              rs.string("type"),
-              rs.string("inbox"),
-              rs.string("outbox")
+              rs.string("type")
             )
         )
         .single
