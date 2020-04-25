@@ -7,4 +7,5 @@ platform:
 steps:
   - name: test
     image: hseeberger/scala-sbt:8u151-2.12.4-1.1.0
-    commands: sbt test
+    commands:
+      - sbt test
